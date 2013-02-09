@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Nata the explorer</title>
+  <title>Category: AppFog - Nata the explorer</title>
   <meta name="author" content="André Barbosa">
 
   
-  <meta name="description" content="AppFog is a PaaS similar to Heroku only cheaper. You can have 2GB of RAM for your app for free, which is perfect for small projects. I won’t go into &hellip;">
+  <meta name="description" content="Category: AppFog">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://nata79.github.com/Blog/">
+  <link rel="canonical" href="http://nata79.github.com/Blogblog/categories/appfog/">
   <link href="/Blog/favicon.png" rel="icon">
   <link href="/Blog/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/Blog/javascripts/modernizr-2.0.js"></script>
@@ -66,71 +66,40 @@
   <div id="body"  >
     <div id="main">
       <div id="content">
-        <div class="blog-index">
+        <div>
+<article role="article">
   
-  
-  
-    <article>
-      
   <header>
-    
-      <h1 class="entry-title"><a href="/Blog/blog/2012/10/19/deploying-a-rails-app-to-appfog/">Deploying a Rails App to AppFog</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-19T22:02:00+01:00" pubdate data-updated="true">Oct 19<span>th</span>, 2012</time>
-        
-      </p>
+    <h1 class="entry-title">Category: AppFog</h1>
     
   </header>
+  
+  <div id="blog-archives" class="category">
 
 
-  <div class="entry-content"><p><a href="http://www.appfog.com/">AppFog</a> is a PaaS similar to <a href="http://www.heroku.com/">Heroku</a> only cheaper. You can have 2GB of RAM for your app for free, which is perfect for small projects.</p>
 
-<p>I won’t go into great detail on what the steps are to deploy your rails app because the folks at AppFog already did that for me. You should check out their documentation at <a href="http://docs.appfog.com">http://docs.appfog.com</a>.</p>
+  
+  <h2>2012</h2>
 
-<p>There is just one little thing that I didn’t get from the documentation and took me a while to understand, the content of my <code>database.yml</code> file. AppFog gives you a way to access installed services information (like your database) through an environment variable. In ruby you would access them like this `ENV[&#8216;VCAP_SERVICES&#8217;]. This will return an hash with information on all your installed services. You have to use this hash to setup your database.yml file.</p>
+<article>
+  
+<h1><a href="/Blog/blog/2012/10/19/deploying-a-rails-app-to-appfog/">Deploying a Rails app to AppFog</a></h1>
+<time datetime="2012-10-19T22:02:00+01:00" pubdate><span class='month'>Oct</span> <span class='day'>19</span> <span class='year'>2012</span></time>
 
-<p>So, the production section in your database.yml file should look something like this:</p>
+<footer>
+  <span class="categories">posted in <a class='category' href='/Blog/blog/categories/appfog/'>AppFog</a>, <a class='category' href='/Blog/blog/categories/deploy/'>Deploy</a>, <a class='category' href='/Blog/blog/categories/production/'>Production</a>, <a class='category' href='/Blog/blog/categories/rails/'>Rails</a></span>
+</footer>
 
-<pre><code>production:
-  adapter: postgresql
-  encoding: unicode
-  pool: 5
-  timeout: 5000
-  host: &lt;%= JSON.parse( ENV['VCAP_SERVICES'] )['postgres'].first['credentials']['hostname'] rescue 'localhost' %&gt;
-  port: &lt;%= JSON.parse( ENV['VCAP_SERVICES'] )['postgres'].first['credentials']['port'] rescue 3306 %&gt;
-  database: &lt;%= JSON.parse( ENV['VCAP_SERVICES'] )['postgres'].first['credentials']['name'] rescue '' %&gt;
-  username: &lt;%= JSON.parse( ENV['VCAP_SERVICES'] )['postgres'].first['credentials']['username'] rescue '' %&gt;
-  password: &lt;%= JSON.parse( ENV['VCAP_SERVICES'] )['postgres'].first['credentials']['password'] rescue '' %&gt;
-</code></pre>
 
-<p>this example uses Postgres but you can easily modify it for your favorite database engine.</p>
+</article>
+
 </div>
-  
-  
 
-
-    </article>
   
-  <div class="pagination">
-    
-    <a href="/Blog/blog/archives">Blog Archives</a>
-    
-  </div>
+</article>
+
 </div>
+
 <aside class="sidebar">
   
     <section>
@@ -148,7 +117,7 @@
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
@@ -167,6 +136,7 @@
 
   
 </aside>
+
 
       </div>
     </div>

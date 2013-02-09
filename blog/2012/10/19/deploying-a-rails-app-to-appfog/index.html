@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Nata the explorer</title>
+  <title>Deploying a Rails app to AppFog - Nata the explorer</title>
   <meta name="author" content="André Barbosa">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://nata79.github.com/Blog/">
+  <link rel="canonical" href="http://nata79.github.com/Blog/blog/2012/10/19/deploying-a-rails-app-to-appfog/">
   <link href="/Blog/favicon.png" rel="icon">
   <link href="/Blog/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/Blog/javascripts/modernizr-2.0.js"></script>
@@ -66,15 +66,12 @@
   <div id="body"  >
     <div id="main">
       <div id="content">
-        <div class="blog-index">
+        <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/Blog/blog/2012/10/19/deploying-a-rails-app-to-appfog/">Deploying a Rails App to AppFog</a></h1>
+      <h1 class="entry-title">Deploying a Rails App to AppFog</h1>
     
     
       <p class="meta">
@@ -97,7 +94,7 @@
   </header>
 
 
-  <div class="entry-content"><p><a href="http://www.appfog.com/">AppFog</a> is a PaaS similar to <a href="http://www.heroku.com/">Heroku</a> only cheaper. You can have 2GB of RAM for your app for free, which is perfect for small projects.</p>
+<div class="entry-content"><p><a href="http://www.appfog.com/">AppFog</a> is a PaaS similar to <a href="http://www.heroku.com/">Heroku</a> only cheaper. You can have 2GB of RAM for your app for free, which is perfect for small projects.</p>
 
 <p>I won’t go into great detail on what the steps are to deploy your rails app because the folks at AppFog already did that for me. You should check out their documentation at <a href="http://docs.appfog.com">http://docs.appfog.com</a>.</p>
 
@@ -119,18 +116,63 @@
 
 <p>this example uses Postgres but you can easily modify it for your favorite database engine.</p>
 </div>
+
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">André Barbosa</span></span>
+
+      
+
+
+
+
+
+
+
+
   
 
 
-    </article>
+<time datetime="2012-10-19T22:02:00+01:00" pubdate data-updated="true">Oct 19<span>th</span>, 2012</time>
+      
+
+<span class="categories">
   
-  <div class="pagination">
+    <a class='category' href='/Blog/blog/categories/appfog/'>AppFog</a>, <a class='category' href='/Blog/blog/categories/deploy/'>Deploy</a>, <a class='category' href='/Blog/blog/categories/production/'>Production</a>, <a class='category' href='/Blog/blog/categories/rails/'>Rails</a>
+  
+</span>
+
+
+    </p>
     
-    <a href="/Blog/blog/archives">Blog Archives</a>
-    
-  </div>
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nata79.github.com/Blog/blog/2012/10/19/deploying-a-rails-app-to-appfog/" data-via="AndreBarbosa88" data-counturl="http://nata79.github.com/Blog/blog/2012/10/19/deploying-a-rails-app-to-appfog/" >Tweet</a>
+  
+  
+  
 </div>
+
+    
+    <p class="meta">
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -148,7 +190,7 @@
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
@@ -168,6 +210,7 @@
   
 </aside>
 
+
       </div>
     </div>
     <footer role="contentinfo"><p>
@@ -182,7 +225,10 @@
       var disqus_shortname = 'natablog';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://nata79.github.com/Blog/blog/2012/10/19/deploying-a-rails-app-to-appfog/';
+        var disqus_url = 'http://nata79.github.com/Blog/blog/2012/10/19/deploying-a-rails-app-to-appfog/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
