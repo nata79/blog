@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+
+Sitemap: http://nata79.github.com/Blog/sitemap.xml 
