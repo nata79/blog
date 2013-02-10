@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Testing | Nata, the explorer]]></title>
-  <link href="http://nata79.github.com/Blog/blog/categories/testing/atom.xml" rel="self"/>
-  <link href="http://nata79.github.com/Blog/"/>
-  <updated>2013-02-10T01:03:14+00:00</updated>
-  <id>http://nata79.github.com/Blog/</id>
+  <link href="http://andrebarbosa.co/blog/blog/categories/testing/atom.xml" rel="self"/>
+  <link href="http://andrebarbosa.co/blog/"/>
+  <updated>2013-02-10T01:23:28+00:00</updated>
+  <id>http://andrebarbosa.co/blog/</id>
   <author>
     <name><![CDATA[André Barbosa]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Testing Delayed Jobs]]></title>
-    <link href="http://nata79.github.com/Blog/blog/2013/02/09/testing-delayed-jobs/"/>
+    <link href="http://andrebarbosa.co/blog/2013/02/09/testing-delayed-jobs/"/>
     <updated>2013-02-09T23:39:00+00:00</updated>
-    <id>http://nata79.github.com/Blog/blog/2013/02/09/testing-delayed-jobs</id>
+    <id>http://andrebarbosa.co/blog/2013/02/09/testing-delayed-jobs</id>
     <content type="html"><![CDATA[<p>Delayed Job is a Ruby gem that encapsulates the common pattern of asynchronously executing longer tasks in the background.</p>
 
 <p>I use it frequently because it's a very easy way to send long tasks to the background or schedule some task for the future.</p>

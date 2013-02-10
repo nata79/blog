@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Nata, the explorer]]></title>
-  <link href="http://nata79.github.com/Blog/atom.xml" rel="self"/>
-  <link href="http://nata79.github.com/Blog/"/>
-  <updated>2013-02-10T01:03:14+00:00</updated>
-  <id>http://nata79.github.com/Blog/</id>
+  <link href="http://andrebarbosa.co/blog/atom.xml" rel="self"/>
+  <link href="http://andrebarbosa.co/blog/"/>
+  <updated>2013-02-10T01:23:28+00:00</updated>
+  <id>http://andrebarbosa.co/blog/</id>
   <author>
     <name><![CDATA[André Barbosa]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Testing Delayed Jobs]]></title>
-    <link href="http://nata79.github.com/Blog/blog/2013/02/09/testing-delayed-jobs/"/>
+    <link href="http://andrebarbosa.co/blog/2013/02/09/testing-delayed-jobs/"/>
     <updated>2013-02-09T23:39:00+00:00</updated>
-    <id>http://nata79.github.com/Blog/blog/2013/02/09/testing-delayed-jobs</id>
+    <id>http://andrebarbosa.co/blog/2013/02/09/testing-delayed-jobs</id>
     <content type="html"><![CDATA[<p>Delayed Job is a Ruby gem that encapsulates the common pattern of asynchronously executing longer tasks in the background.</p>
 
 <p>I use it frequently because it&#8217;s a very easy way to send long tasks to the background or schedule some task for the future.</p>
@@ -176,9 +176,9 @@
   
   <entry>
     <title type="html"><![CDATA[Deploying a Rails app to AppFog]]></title>
-    <link href="http://nata79.github.com/Blog/blog/2012/10/19/deploying-a-rails-app-to-appfog/"/>
+    <link href="http://andrebarbosa.co/blog/2012/10/19/deploying-a-rails-app-to-appfog/"/>
     <updated>2012-10-19T22:02:00+01:00</updated>
-    <id>http://nata79.github.com/Blog/blog/2012/10/19/deploying-a-rails-app-to-appfog</id>
+    <id>http://andrebarbosa.co/blog/2012/10/19/deploying-a-rails-app-to-appfog</id>
     <content type="html"><![CDATA[<p><a href="http://www.appfog.com/">AppFog</a> is a PaaS similar to <a href="http://www.heroku.com/">Heroku</a> only cheaper. You can have 2GB of RAM for your app for free, which is perfect for small projects.</p>
 
 <p>I won’t go into great detail on what the steps are to deploy your rails app because the folks at AppFog already did that for me. You should check out their documentation at <a href="http://docs.appfog.com">http://docs.appfog.com</a>.</p>
