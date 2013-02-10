@@ -98,21 +98,33 @@
 
 <p>I won’t go into great detail on what the steps are to deploy your rails app because the folks at AppFog already did that for me. You should check out their documentation at <a href="http://docs.appfog.com">http://docs.appfog.com</a>.</p>
 
-<p>There is just one little thing that I didn’t get from the documentation and took me a while to understand, the content of my <code>database.yml</code> file. AppFog gives you a way to access installed services information (like your database) through an environment variable. In ruby you would access them like this `ENV[&#8216;VCAP_SERVICES&#8217;]. This will return an hash with information on all your installed services. You have to use this hash to setup your database.yml file.</p>
+<p>There is just one little thing that I didn’t get from the documentation and took me a while to understand, the content of my <code>database.yml</code> file. AppFog gives you a way to access installed services information (like your database) through an environment variable. In ruby you would access them like this <code>ENV['VCAP_SERVICES']</code>. This will return an hash with information on all your installed services. You have to use this hash to setup your database.yml file.</p>
 
 <p>So, the production section in your database.yml file should look something like this:</p>
 
-<pre><code>production:
-  adapter: postgresql
-  encoding: unicode
-  pool: 5
-  timeout: 5000
-  host: &lt;%= JSON.parse( ENV['VCAP_SERVICES'] )['postgres'].first['credentials']['hostname'] rescue 'localhost' %&gt;
-  port: &lt;%= JSON.parse( ENV['VCAP_SERVICES'] )['postgres'].first['credentials']['port'] rescue 3306 %&gt;
-  database: &lt;%= JSON.parse( ENV['VCAP_SERVICES'] )['postgres'].first['credentials']['name'] rescue '' %&gt;
-  username: &lt;%= JSON.parse( ENV['VCAP_SERVICES'] )['postgres'].first['credentials']['username'] rescue '' %&gt;
-  password: &lt;%= JSON.parse( ENV['VCAP_SERVICES'] )['postgres'].first['credentials']['password'] rescue '' %&gt;
-</code></pre>
+<figure class='code'><figcaption><span>config/database.yml  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">production</span><span class="p-Indicator">:</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">adapter</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">postgresql</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">encoding</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">unicode</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">timeout</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5000</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;%= JSON.parse( ENV[&#39;VCAP_SERVICES&#39;] )[&#39;postgres&#39;].first[&#39;credentials&#39;][&#39;hostname&#39;] rescue &#39;localhost&#39; %&gt;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;%= JSON.parse( ENV[&#39;VCAP_SERVICES&#39;] )[&#39;postgres&#39;].first[&#39;credentials&#39;][&#39;port&#39;] rescue 3306 %&gt;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">database</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;%= JSON.parse( ENV[&#39;VCAP_SERVICES&#39;] )[&#39;postgres&#39;].first[&#39;credentials&#39;][&#39;name&#39;] rescue &#39;&#39; %&gt;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;%= JSON.parse( ENV[&#39;VCAP_SERVICES&#39;] )[&#39;postgres&#39;].first[&#39;credentials&#39;][&#39;username&#39;] rescue &#39;&#39; %&gt;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;%= JSON.parse( ENV[&#39;VCAP_SERVICES&#39;] )[&#39;postgres&#39;].first[&#39;credentials&#39;][&#39;password&#39;] rescue &#39;&#39; %&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>this example uses Postgres but you can easily modify it for your favorite database engine.</p>
 </div>
@@ -161,6 +173,8 @@
     <p class="meta">
       
       
+        <a class="basic-alignment right" href="/Blog/blog/2013/02/09/testing-delayed-jobs/" title="Next Post: Testing Delayed Jobs">Testing Delayed Jobs &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -178,6 +192,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/Blog/blog/2013/02/09/testing-delayed-jobs/">Testing Delayed Jobs</a>
+      </li>
     
       <li class="post">
         <a href="/Blog/blog/2012/10/19/deploying-a-rails-app-to-appfog/">Deploying a Rails app to AppFog</a>

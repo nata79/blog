@@ -2,15 +2,19 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://nata79.github.com/Blog/blog/2012/10/19/deploying-a-rails-app-to-appfog/</loc>
-        <lastmod>2013-02-09T23:32:44+00:00</lastmod>
+        <lastmod>2013-02-10T00:48:49+00:00</lastmod>
+    </url>
+    <url>
+        <loc>http://nata79.github.com/Blog/blog/2013/02/09/testing-delayed-jobs/</loc>
+        <lastmod>2013-02-10T01:03:14+00:00</lastmod>
     </url>
     <url>
         <loc>http://nata79.github.com/Blog/blog/archives/</loc>
-        <lastmod>2013-02-09T23:32:44+00:00</lastmod>
+        <lastmod>2013-02-10T01:03:14+00:00</lastmod>
     </url>
     <url>
         <loc>http://nata79.github.com/Blog/</loc>
-        <lastmod>2013-02-09T23:32:44+00:00</lastmod>
+        <lastmod>2013-02-10T01:03:14+00:00</lastmod>
     </url>
     <url>
         <loc>http://nata79.github.com/Blog/robots.txt</loc>
