@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Delayed Jobs | Nata, the explorer]]></title>
   <link href="http://andrebarbosa.co/blog/blog/categories/delayed-jobs/atom.xml" rel="self"/>
   <link href="http://andrebarbosa.co/blog/"/>
-  <updated>2013-02-10T01:49:30+00:00</updated>
+  <updated>2013-02-10T01:51:29+00:00</updated>
   <id>http://andrebarbosa.co/blog/</id>
   <author>
     <name><![CDATA[André Barbosa]]></name>
@@ -169,7 +169,6 @@
 <span class='line-number'>19</span>
 <span class='line-number'>20</span>
 <span class='line-number'>21</span>
-<span class='line-number'>22</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;spec_helper&#39;</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="sr">&lt;p&gt;describe &quot;Event&quot; do</span>
@@ -179,8 +178,7 @@
 </span><span class='line'><span class="n">event</span> <span class="o">=</span> <span class="no">Event</span><span class="o">.</span><span class="n">create</span> <span class="ss">date</span><span class="p">:</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span> <span class="o">+</span> <span class="mi">1</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="nb">name</span><span class="p">:</span> <span class="s1">&#39;Super Awesome Event&#39;</span>
 </span><span class='line'>
 </span><span class='line'><span class="c1"># Add some subscribers</span>
-</span><span class='line'><span class="n">subscribers</span> <span class="o">=</span> <span class="mi">1</span><span class="o">.</span><span class="n">upto</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">{</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span>
-</span><span class='line'>  <span class="n">event</span><span class="o">.</span><span class="n">subscribers</span><span class="o">.</span><span class="n">create</span> <span class="ss">email</span><span class="p">:</span> <span class="s2">&quot;subscriber</span><span class="si">#{</span><span class="n">i</span><span class="si">}</span><span class="s2">@mail.fake&quot;</span> <span class="p">}</span>
+</span><span class='line'><span class="mi">10</span><span class="o">.</span><span class="n">times</span><span class="p">{</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">event</span><span class="o">.</span><span class="n">subscribers</span><span class="o">.</span><span class="n">create</span> <span class="ss">email</span><span class="p">:</span> <span class="s2">&quot;subscriber</span><span class="si">#{</span><span class="n">i</span><span class="si">}</span><span class="s2">@mail.fake&quot;</span> <span class="p">}</span>
 </span><span class='line'>
 </span><span class='line'><span class="no">Timecop</span><span class="o">.</span><span class="n">freeze</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">beggining_of_day</span> <span class="o">-</span> <span class="mi">1</span><span class="o">.</span><span class="n">day</span><span class="p">)</span> <span class="k">do</span>
 </span><span class='line'>  <span class="n">perform_jobs</span>
