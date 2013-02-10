@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Rails | Nata, the explorer]]></title>
   <link href="http://andrebarbosa.co/blog/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://andrebarbosa.co/blog/"/>
-  <updated>2013-02-10T01:23:28+00:00</updated>
+  <updated>2013-02-10T01:44:42+00:00</updated>
   <id>http://andrebarbosa.co/blog/</id>
   <author>
     <name><![CDATA[André Barbosa]]></name>
@@ -206,7 +206,7 @@ Ok! It’s done. Now we can test if any job is being scheduled correctly and exe
 
 <p>I won’t go into great detail on what the steps are to deploy your rails app because the folks at AppFog already did that for me. You should check out their documentation at <a href="http://docs.appfog.com">http://docs.appfog.com</a>.</p>
 
-<p>There is just one little thing that I didn’t get from the documentation and took me a while to understand, the content of my <code>database.yml</code> file. AppFog gives you a way to access installed services information (like your database) through an environment variable. In ruby you would access them like this <code>ENV['VCAP_SERVICES']</code>. This will return an hash with information on all your installed services. You have to use this hash to setup your database.yml file.</p>
+<p>There is just one little thing that I didn’t get from the documentation and took me a while to understand, the content of my <code>database.yml</code> file. AppFog gives you a way to access installed services information (like your database) through an environment variable. In ruby you would access them like this <code>ENV['VCAP_SERVICES']</code>. This will return an hash with information on all your installed services. You have to use this hash to setup your <code>database.yml</code> file.</p>
 
 <p>So, the production section in your database.yml file should look something like this:</p>
 
