@@ -1,24 +1,100 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Nata, the explorer]]></title>
-  <link href="http://andrebarbosa.co/blog/atom.xml" rel="self"/>
-  <link href="http://andrebarbosa.co/blog/"/>
-  <updated>2013-03-04T17:41:51+00:00</updated>
-  <id>http://andrebarbosa.co/blog/</id>
-  <author>
-    <name><![CDATA[André Barbosa]]></name>
-    
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Access Levels in Rails - Nata, the explorer</title>
+  <meta name="author" content="André Barbosa">
 
   
-  <entry>
-    <title type="html"><![CDATA[Access Levels in Rails]]></title>
-    <link href="http://andrebarbosa.co/blog/2013/03/04/access-levels-in-rails/"/>
-    <updated>2013-03-04T14:02:00+00:00</updated>
-    <id>http://andrebarbosa.co/blog/2013/03/04/access-levels-in-rails</id>
-    <content type="html"><![CDATA[<p>Authorization in rails can be achieved in many ways. One of the most popular ways to achieve this is through <a href="https://github.com/ryanb/cancan">can can</a>. With can can, all permissions are defined in a single location, the <code>Ability</code> class.</p>
+  <meta name="description" content="Authorization in rails can be achieved in many ways. One of the most popular ways to achieve this is through can can. With can can, all permissions &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://andrebarbosa.co/blog/2013/03/04/access-levels-in-rails/">
+  <link href="/blog/favicon.png" rel="icon">
+  <link href="/blog/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/blog/javascripts/modernizr-2.0.js"></script>
+  <script src="/blog/javascripts/ender.js"></script>
+  <script src="/blog/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/blog/atom.xml" rel="alternate" title="Nata, the explorer" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="/blog/">Nata, the explorer</a></h1>
+  
+    <h2>Yet another geek blog.</h2>
+  
+</hgroup>
+
+</header>
+  <div id="navigation">
+    <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/blog/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:andrebarbosa.co/blog" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/blog/">Blog</a></li>
+  <li><a href="/blog/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  </div>
+  <div id="body"  >
+    <div id="main">
+      <div id="content">
+        <div style="padding-top: 0px;">
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Access Levels in Rails</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-04T14:02:00+00:00" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Authorization in rails can be achieved in many ways. One of the most popular ways to achieve this is through <a href="https://github.com/ryanb/cancan">can can</a>. With can can, all permissions are defined in a single location, the <code>Ability</code> class.</p>
 
 <p>I&#8217;m not a fan of this approach because:</p>
 
@@ -316,207 +392,158 @@ he or her can promote any member to admin.</p>
 <p>What I proposed here was a method to create access levels in a rails application using nested modules and controller inheritance. In the example application we defined a module <code>BoardAccess</code> to wrap the different access levels, namely <code>Normal</code> and <code>Admin</code>. In order to keep ourselves from writing repeated code we added some inheritance to our controllers and we used the top hierarchy classes to handle the authorization process.</p>
 
 <p>PS: You can find the full source code for the Message Board application <a href="https://github.com/nata79/MessageBoard">here</a>.</p>
-]]></content>
-  </entry>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  <entry>
-    <title type="html"><![CDATA[Testing Delayed Jobs]]></title>
-    <link href="http://andrebarbosa.co/blog/2013/02/09/testing-delayed-jobs/"/>
-    <updated>2013-02-09T23:39:00+00:00</updated>
-    <id>http://andrebarbosa.co/blog/2013/02/09/testing-delayed-jobs</id>
-    <content type="html"><![CDATA[<p>Delayed Job is a Ruby gem that encapsulates the common pattern of asynchronously executing longer tasks in the background.</p>
 
-<p>I use it frequently because it&#8217;s a very easy way to send long tasks to the background or schedule some task for the future.</p>
+<span class="byline author vcard">Posted by <span class="fn">André Barbosa</span></span>
 
-<p>In a testing environment you can switch off Delayed Jobs and every task will be executed immediately but sometimes that&#8217;s not enough if you&#8217;re scheduling some task that should run in a specific time in the future.</p>
-
-<p>Anyway, it gives some extra peace of mind if my test is scheduling a background job and running it when it’s supposed to. In order to do this I use Timecop to set the current time in my testing environment and an auxiliary method that fetches and runs scheduled jobs.</p>
-
-<p>The first thing to do is installing Timecop. You can do that by simply adding it to your <code>Gemfile</code> and run <code>bundle</code>.</p>
-
-<figure class='code'><figcaption><span>Gemfile  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">group</span> <span class="ss">:test</span> <span class="k">do</span>
-</span><span class='line'>  <span class="c1"># ...</span>
-</span><span class='line'>  <span class="n">gem</span> <span class="s1">&#39;timecop&#39;</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
+      
 
 
-<p>Now let’s create the method to run the delayed jobs. I usually create a module called <code>DelayedJobHelper</code> and put it in <code>spec/support</code> (yes, I’m using RSpec here, if you use a different testing framework, it probably won’t be too hard to make the transition).</p>
-
-<figure class='code'><figcaption><span>spec/support/delayed_job_helper.rb  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">DelayedJobHelper</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">perform_jobs</span>
-</span><span class='line'>    <span class="ss">Delayed</span><span class="p">:</span><span class="ss">:Job</span><span class="o">.</span><span class="n">all</span><span class="o">.</span><span class="n">to_a</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">job</span><span class="o">|</span>
-</span><span class='line'>      <span class="k">if</span> <span class="n">job</span><span class="o">.</span><span class="n">run_at</span> <span class="o">&lt;=</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span>
-</span><span class='line'>        <span class="n">job</span><span class="o">.</span><span class="n">invoke_job</span>
-</span><span class='line'>        <span class="n">job</span><span class="o">.</span><span class="n">destroy</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
 
 
-<p>The method <code>perform_jobs</code> will run through every delayed job in the database, check if it&#8217;s scheduled to run now or sometime in the past and if that’s true, invoke the job and finally destroy it. To get access to this method in your spec files, you should include the following lines in your <code>spec_helper.rb</code>.</p>
-
-<figure class='code'><figcaption><span>spec/spec_helper.rb  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># ...</span>
-</span><span class='line'><span class="no">Dir</span><span class="o">[</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;spec/support/**/*.rb&quot;</span><span class="p">)</span><span class="o">].</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="nb">require</span> <span class="n">f</span> <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="no">RSpec</span><span class="o">.</span><span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
-</span><span class='line'>  <span class="c1"># ...</span>
-</span><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="no">DelayedJobHelper</span><span class="p">)</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Now that we’re all set up let’s see an example of how to test a delayed job.</p>
-
-<p>Let’s say we have a model called Event. An event has a date, a name and many subscribers. Also, an event, after creation, schedules a job to send a notification to every subscriber on the day before the event.</p>
-
-<figure class='code'><figcaption><span>app/models/event.rb  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Event</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
-</span><span class='line'>  <span class="n">attr_accessible</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:date</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:subscribers</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">after_create</span> <span class="ss">:notify_subscribers</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">notify_subscribers</span>
-</span><span class='line'>    <span class="nb">self</span><span class="o">.</span><span class="n">subscribers</span><span class="o">.</span><span class="n">find_each</span> <span class="k">do</span> <span class="o">|</span><span class="n">s</span><span class="o">|</span>
-</span><span class='line'>      <span class="n">s</span><span class="o">.</span><span class="n">send_notification</span> <span class="ss">:event_tomorrow</span><span class="p">,</span> <span class="nb">self</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>  <span class="n">handle_asynchronously</span>
-</span><span class='line'>    <span class="ss">:notify_subscribers</span><span class="p">,</span>
-</span><span class='line'>    <span class="n">run_at</span><span class="p">:</span> <span class="no">Proc</span><span class="o">.</span><span class="n">new</span> <span class="p">{</span> <span class="o">|</span><span class="n">e</span><span class="o">|</span> <span class="n">e</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">beginning_of_day</span> <span class="o">-</span> <span class="mi">1</span><span class="o">.</span><span class="n">day</span> <span class="p">}</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Now, let&#8217;s build a spec for the <code>Event</code> model.</p>
-
-<figure class='code'><figcaption><span>spec/models/event_spec.rb  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;spec_helper&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">describe</span> <span class="s2">&quot;Event&quot;</span> <span class="k">do</span>
-</span><span class='line'>  <span class="n">it</span> <span class="s2">&quot;notyfies every subscriber on the day before the event&quot;</span> <span class="k">do</span>
-</span><span class='line'>    <span class="c1"># Create an event</span>
-</span><span class='line'>    <span class="n">event</span> <span class="o">=</span> <span class="no">Event</span><span class="o">.</span><span class="n">create</span> <span class="ss">date</span><span class="p">:</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span> <span class="o">+</span> <span class="mi">1</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="nb">name</span><span class="p">:</span> <span class="s1">&#39;Super Awesome Event&#39;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1"># Add some subscribers</span>
-</span><span class='line'>    <span class="mi">10</span><span class="o">.</span><span class="n">times</span><span class="p">{</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">event</span><span class="o">.</span><span class="n">subscribers</span><span class="o">.</span><span class="n">create</span> <span class="ss">email</span><span class="p">:</span> <span class="s2">&quot;subscriber</span><span class="si">#{</span><span class="n">i</span><span class="si">}</span><span class="s2">@mail.fake&quot;</span> <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="no">Timecop</span><span class="o">.</span><span class="n">freeze</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">beggining_of_day</span> <span class="o">-</span> <span class="mi">1</span><span class="o">.</span><span class="n">day</span><span class="p">)</span> <span class="k">do</span>
-</span><span class='line'>      <span class="n">perform_jobs</span>
-</span><span class='line'>      <span class="n">event</span><span class="o">.</span><span class="n">subscribers</span><span class="o">.</span><span class="n">find_each</span> <span class="k">do</span> <span class="o">|</span><span class="n">s</span><span class="o">|</span>
-</span><span class='line'>        <span class="n">expect</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">notifications</span><span class="o">.</span><span class="n">exists?</span> <span class="ss">type</span><span class="p">:</span> <span class="ss">:event_tomorrow</span><span class="p">,</span> <span class="ss">event</span><span class="p">:</span> <span class="n">event</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_true</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Ok! It’s done. Now we can test if any job is being scheduled correctly and executing at the right moment.</p>
-]]></content>
-  </entry>
   
-  <entry>
-    <title type="html"><![CDATA[Deploying a Rails app to AppFog]]></title>
-    <link href="http://andrebarbosa.co/blog/2012/10/19/deploying-a-rails-app-to-appfog/"/>
-    <updated>2012-10-19T22:02:00+01:00</updated>
-    <id>http://andrebarbosa.co/blog/2012/10/19/deploying-a-rails-app-to-appfog</id>
-    <content type="html"><![CDATA[<p><a href="http://www.appfog.com/">AppFog</a> is a PaaS similar to <a href="http://www.heroku.com/">Heroku</a> only cheaper. You can have 2GB of RAM for your app for free, which is perfect for small projects.</p>
-
-<p>I won’t go into great detail on what the steps are to deploy your rails app because the folks at AppFog already did that for me. You should check out their documentation at <a href="http://docs.appfog.com">http://docs.appfog.com</a>.</p>
-
-<p>There is just one little thing that I didn’t get from the documentation and took me a while to understand, the content of my <code>database.yml</code> file. AppFog gives you a way to access installed services information (like your database) through an environment variable. In ruby you would access them like this <code>ENV['VCAP_SERVICES']</code>. This will return an hash with information on all your installed services. You have to use this hash to setup your `database.yml file.</p>
-
-<p>So, the production section in your database.yml file should look something like this:</p>
-
-<figure class='code'><figcaption><span>config/database.yml  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">production</span><span class="p-Indicator">:</span>
-</span><span class='line'>  <span class="l-Scalar-Plain">adapter</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">postgresql</span>
-</span><span class='line'>  <span class="l-Scalar-Plain">encoding</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">unicode</span>
-</span><span class='line'>  <span class="l-Scalar-Plain">pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5</span>
-</span><span class='line'>  <span class="l-Scalar-Plain">timeout</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5000</span>
-</span><span class='line'>  <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;%= JSON.parse( ENV[&#39;VCAP_SERVICES&#39;] )[&#39;postgres&#39;].first[&#39;credentials&#39;][&#39;hostname&#39;] rescue &#39;localhost&#39; %&gt;</span>
-</span><span class='line'>  <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;%= JSON.parse( ENV[&#39;VCAP_SERVICES&#39;] )[&#39;postgres&#39;].first[&#39;credentials&#39;][&#39;port&#39;] rescue 3306 %&gt;</span>
-</span><span class='line'>  <span class="l-Scalar-Plain">database</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;%= JSON.parse( ENV[&#39;VCAP_SERVICES&#39;] )[&#39;postgres&#39;].first[&#39;credentials&#39;][&#39;name&#39;] rescue &#39;&#39; %&gt;</span>
-</span><span class='line'>  <span class="l-Scalar-Plain">username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;%= JSON.parse( ENV[&#39;VCAP_SERVICES&#39;] )[&#39;postgres&#39;].first[&#39;credentials&#39;][&#39;username&#39;] rescue &#39;&#39; %&gt;</span>
-</span><span class='line'>  <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;%= JSON.parse( ENV[&#39;VCAP_SERVICES&#39;] )[&#39;postgres&#39;].first[&#39;credentials&#39;][&#39;password&#39;] rescue &#39;&#39; %&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
 
 
-<p>this example uses Postgres but you can easily modify it for your favorite database engine.</p>
-]]></content>
-  </entry>
+<time datetime="2013-03-04T14:02:00+00:00" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
+      
+
+<span class="categories">
   
-</feed>
+    <a class='category' href='/blog/blog/categories/authorization/'>Authorization</a>, <a class='category' href='/blog/blog/categories/rails/'>Rails</a>, <a class='category' href='/blog/blog/categories/security/'>Security</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://andrebarbosa.co/blog/2013/03/04/access-levels-in-rails/" data-via="AndreBarbosa88" data-counturl="http://andrebarbosa.co/blog/2013/03/04/access-levels-in-rails/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/02/09/testing-delayed-jobs/" title="Previous Post: Testing Delayed Jobs">&laquo; Testing Delayed Jobs</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section style="background: #fbfbfb; padding-top: 32px;">
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/03/04/access-levels-in-rails/">Access Levels in Rails</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/02/09/testing-delayed-jobs/">Testing Delayed Jobs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/19/deploying-a-rails-app-to-appfog/">Deploying a Rails app to AppFog</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("AndreBarbosa88", 4, false);
+    });
+  </script>
+  <script src="/blog/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/AndreBarbosa88" class="twitter-follow-button" data-show-count="false">Follow @AndreBarbosa88</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+      </div>
+    </div>
+    <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - André Barbosa -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a></span>
+</p>
+
+</footer>
+    
+
+<script type="text/javascript">
+      var disqus_shortname = 'natablog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://andrebarbosa.co/blog/2013/03/04/access-levels-in-rails/';
+        var disqus_url = 'http://andrebarbosa.co/blog/2013/03/04/access-levels-in-rails/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+  </div>
+</body>
+</html>

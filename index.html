@@ -9,7 +9,7 @@
   <meta name="author" content="André Barbosa">
 
   
-  <meta name="description" content="Delayed Job is a Ruby gem that encapsulates the common pattern of asynchronously executing longer tasks in the background. I use it frequently &hellip;">
+  <meta name="description" content="Authorization in rails can be achieved in many ways. One of the most popular ways to achieve this is through can can. With can can, all permissions &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,6 +68,339 @@
       <div id="content">
         <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/03/04/access-levels-in-rails/">Access Levels in Rails</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-04T14:02:00+00:00" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Authorization in rails can be achieved in many ways. One of the most popular ways to achieve this is through <a href="https://github.com/ryanb/cancan">can can</a>. With can can, all permissions are defined in a single location, the <code>Ability</code> class.</p>
+
+<p>I&#8217;m not a fan of this approach because:</p>
+
+<ul>
+<li>I think the controllers should be the ones handling the authorization;</li>
+<li>The DSL doesn&#8217;t offer a lot of flexibility and makes it harder for nested resources;</li>
+<li>It&#8217;s not easy to keep everything organized as the number of resources and access levels increase.</li>
+</ul>
+
+
+<p>There are other approaches and gems to handle authorization in Rails like <a href="https://github.com/stffn/declarative_authorization">declarative authorization</a> and <a href="https://github.com/binarylogic/authlogic">authlogic</a> but they look too complicated and little bit outdated. Nevertheless you should, also, check them out.</p>
+
+<h2>My approach</h2>
+
+<p>In my opinion authorization logic should be in the controllers. My approach is to put actions with different access levels in different controllers nested in different modules and use inheritance between the controllers to avoid duplication.</p>
+
+<p>Next, I&#8217;ll show an example with a small application where i&#8217;ll put into practice this approach.</p>
+
+<h3>Message Board</h3>
+
+<p>Message Board is a small app that allows users to create message boards.</p>
+
+<p>A message board is a private space where it&#8217;s members can post stuff that
+will be viewed by the other members.</p>
+
+<p>Any user is allowed to create a new message board. In order to view or post
+into a message board, a user has to be invited by one of the message board&#8217;s
+admins. The creator of a message board is automaticaly added as an admin of
+the message board. After he or her invites other users to the message board,
+he or her can promote any member to admin.</p>
+
+<p>By reading the description of the app, we can already identify three access levels:</p>
+
+<ul>
+<li><strong>User</strong> - Any authenticaded user.
+
+<ul>
+<li>Can create a new Board.</li>
+</ul>
+</li>
+<li><strong>Board Member</strong> - A user that is a member of given board.
+
+<ul>
+<li>Can view the board page.</li>
+<li>Can post a new message to the board.</li>
+</ul>
+</li>
+<li><strong>Board Admin</strong> - A user that is an admin member of given board.
+
+<ul>
+<li>Can do everything that a Board Member can.</li>
+<li>Can add new members to the board.</li>
+<li>Can delete messages from the board.</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>Controllers</h3>
+
+<pre><code>app/controllers
+├── BoardAccess
+│   ├── Admin
+│   │   ├── base_controller.rb
+│   │   ├── board_members_controller.rb
+│   │   ├── boards_controller.rb
+│   │   └── messages_controller.rb
+│   ├── Normal
+│   │   ├── base_controller.rb
+│   │   ├── boards_controller.rb
+│   │   └── messages_controller.rb
+│   └── board_access_base_controller.rb
+├── application_controller.rb
+└── boards_controller.rb
+</code></pre>
+
+<p>The first access level is public so it&#8217;s handled by the <code>BoardsController</code> located in <code>app/controllers/boards_controller.rb</code>.</p>
+
+<p>The folder <code>BoardAccess</code> contatins a class <code>BoardAccessBaseController</code> that serves as superclass for every controller in the module <code>BoardAccess</code>.</p>
+
+<figure class='code'><figcaption><span>app/controllers/board_access/board_access_base_controller.rb  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">BoardAccess</span>
+</span><span class='line'>  <span class="k">class</span> <span class="nc">BoardAccessBaseController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+</span><span class='line'>    <span class="n">before_filter</span> <span class="ss">:authenticate_user!</span>
+</span><span class='line'>    <span class="n">before_filter</span> <span class="ss">:load_board</span>
+</span><span class='line'>    <span class="n">before_filter</span> <span class="ss">:control_access!</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kp">private</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">authenticate_user!</span>
+</span><span class='line'>      <span class="n">permission_denied</span> <span class="k">unless</span> <span class="n">user_signed_in?</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">load_board</span>
+</span><span class='line'>      <span class="nb">id</span> <span class="o">=</span> <span class="k">if</span> <span class="n">params</span><span class="o">[</span><span class="ss">:board_id</span><span class="o">]</span>
+</span><span class='line'>        <span class="n">params</span><span class="o">[</span><span class="ss">:board_id</span><span class="o">]</span>
+</span><span class='line'>      <span class="k">else</span>
+</span><span class='line'>        <span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="vi">@board</span> <span class="o">=</span> <span class="no">Board</span><span class="o">.</span><span class="n">find</span> <span class="nb">id</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">control_access!</span>
+</span><span class='line'>      <span class="n">permission_denied</span> <span class="k">unless</span> <span class="n">grant_access?</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">grant_access?</span>
+</span><span class='line'>      <span class="k">raise</span> <span class="s1">&#39;Abstract method.&#39;</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">redirect_path</span>
+</span><span class='line'>      <span class="n">board_path</span> <span class="vi">@board</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Here we define three before filters. <code>authenticate_user!</code> makes sure that the user accessing the action is properly authenticated. <code>load_board</code> creates an instance varialble <code>@board</code> with the provided board id. This is possible because every action performed by the controllers who inherit from this class are either related to the boards resource or other resource that is nested under boards. Finaly <code>control_access!</code> checks if the user has permission to perform a given action. It makes use of the <code>grant_access?</code> method that returns true if should be granted access to the current user. This last method should be defined in the <code>BoardAccessBaseController</code> subclasses.</p>
+
+<p>We also have two nested modules, <code>Normal</code> and <code>Admin</code>. Each module represents an access level. Each one of these modules has a <code>BaseController</code> class. These classes implements the <code>grant_access?</code> method left blank in <code>BoardAccessBaseController</code>.</p>
+
+<figure class='code'><figcaption><span>app/controllers/board_access/normal/base_controller.rb  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">require_relative</span> <span class="s1">&#39;../board_access_base_controller.rb&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">module</span> <span class="nn">BoardAccess</span>
+</span><span class='line'>  <span class="k">module</span> <span class="nn">Normal</span>
+</span><span class='line'>    <span class="k">class</span> <span class="nc">BaseController</span> <span class="o">&lt;</span> <span class="ss">BoardAccess</span><span class="p">:</span><span class="ss">:BoardAccessBaseController</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kp">private</span>
+</span><span class='line'>      <span class="k">def</span> <span class="nf">grant_access?</span>
+</span><span class='line'>        <span class="vi">@board</span><span class="o">.</span><span class="n">is_member?</span> <span class="n">current_user</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I the case of the <code>Normal</code> module, the <code>BaseController</code> class checks if the <code>current_user</code> is a member of the selected board.</p>
+
+<figure class='code'><figcaption><span>app/controllers/board_access/admin/base_controller.rb  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">require_relative</span> <span class="s1">&#39;../board_access_base_controller.rb&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">module</span> <span class="nn">BoardAccess</span>
+</span><span class='line'>  <span class="k">module</span> <span class="nn">Admin</span>
+</span><span class='line'>    <span class="k">class</span> <span class="nc">BaseController</span> <span class="o">&lt;</span> <span class="ss">BoardAccess</span><span class="p">:</span><span class="ss">:BoardAccessBaseController</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kp">private</span>
+</span><span class='line'>      <span class="k">def</span> <span class="nf">grant_access?</span>
+</span><span class='line'>        <span class="vi">@board</span><span class="o">.</span><span class="n">is_admin?</span> <span class="n">current_user</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>On the <code>Admin</code> module, the <code>BaseController</code> class checks if the <code>current_user</code> is an admin of the selected board.</p>
+
+<p>To complete the cycle, let&#8217;s look at a controller defined within one of these modules. For example the <code>MessagesController</code> nested in the <code>BoardAccess/Normal</code> module.</p>
+
+<figure class='code'><figcaption><span>app/controllers/board_access/normal/messages_controller.rb  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">BoardAccess</span>
+</span><span class='line'>  <span class="k">module</span> <span class="nn">Normal</span>
+</span><span class='line'>    <span class="k">class</span> <span class="nc">MessagesController</span> <span class="o">&lt;</span> <span class="no">BaseController</span>
+</span><span class='line'>      <span class="k">def</span> <span class="nf">create</span>
+</span><span class='line'>        <span class="vi">@message</span> <span class="o">=</span> <span class="vi">@board</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">create!</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:message</span><span class="o">]</span><span class="p">){</span> <span class="o">|</span><span class="n">m</span><span class="o">|</span>
+</span><span class='line'>          <span class="n">m</span><span class="o">.</span><span class="n">board_member</span> <span class="o">=</span> <span class="vi">@board</span><span class="o">.</span><span class="n">member_from_user</span> <span class="n">current_user</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="n">redirect_to</span> <span class="n">redirect_path</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Thanks to the top hierarchy, in this controller, we don&#8217;t need any concern about authorization and we can focus on the functional part of the application. The only think that we should take into account, is that the controller should inherit from <code>BaseController</code> instead of <code>ApplicationController</code>.</p>
+
+<h3>Routing</h3>
+
+<p>Now that our controllers are all setup, how do we handle the routing? We can either use namespaces or specify a module directly on the resource. I usualy prefer the second approach because it gives us shorter url&#8217;s but it depends on the use case.</p>
+
+<figure class='code'><figcaption><span>config/routes.rb  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="ss">MessageBoard</span><span class="p">:</span><span class="ss">:Application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">draw</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">devise_for</span> <span class="ss">:users</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">resources</span> <span class="ss">:boards</span><span class="p">,</span> <span class="ss">only</span><span class="p">:</span> <span class="o">[</span><span class="ss">:new</span><span class="p">,</span> <span class="ss">:create</span><span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># Normal Board Member Access Level</span>
+</span><span class='line'>  <span class="n">resources</span> <span class="ss">:boards</span><span class="p">,</span> <span class="ss">only</span><span class="p">:</span> <span class="o">[</span><span class="ss">:show</span><span class="o">]</span><span class="p">,</span> <span class="ss">module</span><span class="p">:</span> <span class="s1">&#39;board_access/normal&#39;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">resources</span> <span class="ss">:messages</span><span class="p">,</span> <span class="ss">only</span><span class="p">:</span> <span class="o">[</span><span class="ss">:create</span><span class="o">]</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># Admin Board Member Access Level</span>
+</span><span class='line'>  <span class="n">resources</span> <span class="ss">:boards</span><span class="p">,</span> <span class="ss">only</span><span class="p">:</span> <span class="o">[</span><span class="ss">:destroy</span><span class="o">]</span><span class="p">,</span> <span class="ss">module</span><span class="p">:</span> <span class="s1">&#39;board_access/admin&#39;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">resources</span> <span class="ss">:messages</span><span class="p">,</span> <span class="ss">only</span><span class="p">:</span> <span class="o">[</span><span class="ss">:destroy</span><span class="o">]</span>
+</span><span class='line'>    <span class="n">resources</span> <span class="ss">:board_members</span><span class="p">,</span> <span class="ss">only</span><span class="p">:</span> <span class="o">[</span><span class="ss">:create</span><span class="o">]</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>For the Message Board application, I went with the second approach.</p>
+
+<h2>Wrapping up</h2>
+
+<p>What I proposed here was a method to create access levels in a rails application using nested modules and controller inheritance. In the example application we defined a module <code>BoardAccess</code> to wrap the different access levels, namely <code>Normal</code> and <code>Admin</code>. In order to keep ourselves from writing repeated code we added some inheritance to our controllers and we used the top hierarchy classes to handle the authorization process.</p>
+
+<p>PS: You can find the full source code for the Message Board application <a href="https://github.com/nata79/MessageBoard">here</a>.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -287,7 +620,7 @@
 
 <p>I won’t go into great detail on what the steps are to deploy your rails app because the folks at AppFog already did that for me. You should check out their documentation at <a href="http://docs.appfog.com">http://docs.appfog.com</a>.</p>
 
-<p>There is just one little thing that I didn’t get from the documentation and took me a while to understand, the content of my <code>database.yml</code> file. AppFog gives you a way to access installed services information (like your database) through an environment variable. In ruby you would access them like this <code>ENV['VCAP_SERVICES']</code>. This will return an hash with information on all your installed services. You have to use this hash to setup your <code>database.yml</code> file.</p>
+<p>There is just one little thing that I didn’t get from the documentation and took me a while to understand, the content of my <code>database.yml</code> file. AppFog gives you a way to access installed services information (like your database) through an environment variable. In ruby you would access them like this <code>ENV['VCAP_SERVICES']</code>. This will return an hash with information on all your installed services. You have to use this hash to setup your `database.yml file.</p>
 
 <p>So, the production section in your database.yml file should look something like this:</p>
 
@@ -334,6 +667,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/03/04/access-levels-in-rails/">Access Levels in Rails</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/02/09/testing-delayed-jobs/">Testing Delayed Jobs</a>

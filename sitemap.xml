@@ -2,19 +2,23 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://andrebarbosa.co/blog/2012/10/19/deploying-a-rails-app-to-appfog/</loc>
-        <lastmod>2013-02-10T01:44:33+00:00</lastmod>
+        <lastmod>2013-02-11T12:05:27+00:00</lastmod>
     </url>
     <url>
         <loc>http://andrebarbosa.co/blog/2013/02/09/testing-delayed-jobs/</loc>
         <lastmod>2013-02-10T01:51:19+00:00</lastmod>
     </url>
     <url>
+        <loc>http://andrebarbosa.co/blog/2013/03/04/access-levels-in-rails/</loc>
+        <lastmod>2013-03-04T17:39:21+00:00</lastmod>
+    </url>
+    <url>
         <loc>http://andrebarbosa.co/blog/blog/archives/</loc>
-        <lastmod>2013-02-10T01:51:19+00:00</lastmod>
+        <lastmod>2013-03-04T17:39:21+00:00</lastmod>
     </url>
     <url>
         <loc>http://andrebarbosa.co/blog/</loc>
-        <lastmod>2013-02-10T01:51:19+00:00</lastmod>
+        <lastmod>2013-03-04T17:39:21+00:00</lastmod>
     </url>
     <url>
         <loc>http://andrebarbosa.co/blog/robots.txt</loc>
