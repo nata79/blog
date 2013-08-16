@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Rails | Nata, the explorer]]></title>
   <link href="http://andrebarbosa.co/blog/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://andrebarbosa.co/blog/"/>
-  <updated>2013-03-04T17:41:51+00:00</updated>
+  <updated>2013-08-16T19:42:17+01:00</updated>
   <id>http://andrebarbosa.co/blog/</id>
   <author>
     <name><![CDATA[André Barbosa]]></name>
@@ -12,6 +12,133 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Integration tests for web services using RSpec]]></title>
+    <link href="http://andrebarbosa.co/blog/2013/08/16/integration-tests-for-web-services-using-rspec/"/>
+    <updated>2013-08-16T16:52:00+01:00</updated>
+    <id>http://andrebarbosa.co/blog/2013/08/16/integration-tests-for-web-services-using-rspec</id>
+    <content type="html"><![CDATA[<p>Recently I had to implement a REST web service for a project in Rails. I've been using RSpec for every kind of tests for a long time but, still, wasn’t sure on what was the best way to use it to test a web service.</p>
+
+<p>Capybara has always been my first choice for integration tests, but it doesn’t make much sense if your views are just plain JSON. Thus, I went for a leaner approach taking advantage of <a href="http://rdoc.info/github/brynary/rack-test/master/Rack/Test/Methods">Rack::Test::Methods</a>.</p>
+
+<p>In this post I will explain my approach to test a web service. I won't get into any details on how the web service in question could or should be implemented.</p>
+
+<h2>Setup</h2>
+
+<p>The first thing to setup is the filesystem. There are infinite ways to do this, I prefer to keep the API tests isolated from the rest of the application.</p>
+
+<pre><code>spec
+├── api
+│
+├── controllers
+│
+├── factories
+│
+├── features
+│
+├── models
+│    
+├── spec_helper.rb
+│
+└── support
+</code></pre>
+
+<p>I guess it would also make sense to decide to put the tests for your API inside the <code>features</code> folder, but I prefer to create a separate <code>api</code> folder. It just feels cleaner.</p>
+
+<p>There's only one more step to complete the setup. We need the <code>Rack::Test::Methods</code> module in our tests. For convenience let's add it to the <code>spec_helper.rb</code>.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>spec/spec_helper.rb  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;h1&gt;...&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="no">RSpec</span><span class="o">.</span><span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">include</span> <span class="ss">Rack</span><span class="p">:</span><span class="ss">:Test</span><span class="o">::</span><span class="no">Methods</span>
+</span><span class='line'>  <span class="c1"># ...</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>That's it! No more setup needed, let's write some specs!</p>
+
+<h2>Specs</h2>
+
+<p>For the sake of example let's say we are building an application that, for some reason, manages products.</p>
+
+<p>I always create one file for each endpoint. Since we're managing products, there should be an endpoint for products. Therefore there is a spec file named <code>products_spec.rb</code> inside our <code>spec/api</code> folder.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>spec/api/products_spec.rb  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;spec_helper&#39;</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;describe &#39;/</span><span class="n">api</span><span class="o">/</span><span class="n">products</span><span class="err">&#39;</span><span class="p">,</span> <span class="ss">type</span><span class="p">:</span> <span class="ss">:api</span> <span class="k">do</span>
+</span><span class='line'>  <span class="c1"># ...</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>The main describe block clearly states that we're describing the <code>/api/products</code> endpoint spec in this file. The describe block as a type of <code>api</code>, the type property is not very important in this case, but it can be used to create filters. More info about that <a href="https://www.relishapp.com/rspec/rspec-core/docs/hooks/filters">here</a>.</p>
+
+<p>Inside the main describe block we can describe the several actions available at this endpoint, like <code>index</code>, <code>show</code>... This is where all the magic happens.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>spec/api/products_spec.rb  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">describe</span> <span class="s1">&#39;#index&#39;</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">before</span> <span class="p">{</span> <span class="n">get</span> <span class="n">api_products_path</span> <span class="p">}</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  it { last_response.status.should eq 200 }&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="n">it</span> <span class="s1">&#39;should return 10 products&#39;</span> <span class="k">do</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;pre&gt;&lt;code&gt;products = JSON.parse last_response.body</span>
+</span><span class='line'><span class="sr">products.count.should eq 10</span>
+</span><span class='line'><span class="sr">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;</span><span class="sr">/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  end</span>
+</span><span class='line'><span class="sr">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>On this example we are testing the index action for the <code>/api/products</code> endpoint. We have a <code>before</code> hook that sends a get request to <code>api_products_path</code>. This means that <code>get api_products_path</code> will execute before each <code>it</code> block.</p>
+
+<p>My favourite part of it is that we have the method <code>last_response</code>. This method returns the response for the last request made in the script and we can use it to access the status of the response, the body, header, etc... All courtesy of <a href="http://rdoc.info/github/brynary/rack-test/master/Rack/Test/Methods">Rack::Test::Methods</a>. You can check the documentation for other methods that you may need.</p>
+
+<p>Because my API always return JSON</p>
+
+<p>Btw, the <code>get</code> method is also part of the <a href="http://rdoc.info/github/brynary/rack-test/master/Rack/Test/Methods">Rack::Test::Methods</a> module. There's also methods for the other types of requests, <code>post</code>, <code>put</code>, <code>patch</code>, <code>delete</code>, etc...</p>
+
+<h2>Conclusion</h2>
+
+<ul>
+<li>Integration tests for you API should be isolated from the rest of your test suite;</li>
+<li>Each spec file should have the specs for an endpoint;</li>
+<li>You don't need a complex framework for this kind of tests, <a href="http://rdoc.info/github/brynary/rack-test/master/Rack/Test/Methods">Rack::Test::Methods</a> works just fine;</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Access Levels in Rails]]></title>
