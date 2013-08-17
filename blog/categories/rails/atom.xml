@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Rails | Nata, the explorer]]></title>
   <link href="http://andrebarbosa.co/blog/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://andrebarbosa.co/blog/"/>
-  <updated>2013-08-16T19:42:17+01:00</updated>
+  <updated>2013-08-17T12:52:27+01:00</updated>
   <id>http://andrebarbosa.co/blog/</id>
   <author>
     <name><![CDATA[André Barbosa]]></name>
@@ -124,8 +124,6 @@
 <p>On this example we are testing the index action for the <code>/api/products</code> endpoint. We have a <code>before</code> hook that sends a get request to <code>api_products_path</code>. This means that <code>get api_products_path</code> will execute before each <code>it</code> block.</p>
 
 <p>My favourite part of it is that we have the method <code>last_response</code>. This method returns the response for the last request made in the script and we can use it to access the status of the response, the body, header, etc... All courtesy of <a href="http://rdoc.info/github/brynary/rack-test/master/Rack/Test/Methods">Rack::Test::Methods</a>. You can check the documentation for other methods that you may need.</p>
-
-<p>Because my API always return JSON</p>
 
 <p>Btw, the <code>get</code> method is also part of the <a href="http://rdoc.info/github/brynary/rack-test/master/Rack/Test/Methods">Rack::Test::Methods</a> module. There's also methods for the other types of requests, <code>post</code>, <code>put</code>, <code>patch</code>, <code>delete</code>, etc...</p>
 
