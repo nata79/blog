@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Integration tests | Nata, the explorer]]></title>
   <link href="http://andrebarbosa.co/blog/blog/categories/integration-tests/atom.xml" rel="self"/>
   <link href="http://andrebarbosa.co/blog/"/>
-  <updated>2013-08-17T12:52:27+01:00</updated>
+  <updated>2013-08-24T11:08:01+01:00</updated>
   <id>http://andrebarbosa.co/blog/</id>
   <author>
     <name><![CDATA[André Barbosa]]></name>
@@ -57,15 +57,19 @@
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
+<span class='line-number'>9</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="sr">&lt;h1&gt;...&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="no">RSpec</span><span class="o">.</span><span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
-</span><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">include</span> <span class="ss">Rack</span><span class="p">:</span><span class="ss">:Test</span><span class="o">::</span><span class="no">Methods</span>
+</span><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">treat_symbols_as_metadata_keys_with_true_values</span> <span class="o">=</span> <span class="kp">true</span>
+</span><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">include</span> <span class="ss">Rack</span><span class="p">:</span><span class="ss">:Test</span><span class="o">::</span><span class="no">Methods</span><span class="p">,</span> <span class="ss">api</span><span class="p">:</span> <span class="kp">true</span>
 </span><span class='line'>  <span class="c1"># ...</span>
 </span><span class='line'><span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>The line <code>config.treat_symbols_as_metadata_keys_with_true_values = true</code> is needed so we can write <code>describe 'some spec', :api</code> instead of <code>describe 'some spec', api: true</code>. <a href="https://www.relishapp.com/rspec/rspec-core/docs/configuration/treat-symbols-as-metadata-keys-with-true-values">Click here for more info on this subject.</a></p>
 
 <p>That's it! No more setup needed, let's write some specs!</p>
 
@@ -83,7 +87,7 @@
 <span class='line-number'>5</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;spec_helper&#39;</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="sr">&lt;p&gt;describe &#39;/</span><span class="n">api</span><span class="o">/</span><span class="n">products</span><span class="err">&#39;</span><span class="p">,</span> <span class="ss">type</span><span class="p">:</span> <span class="ss">:api</span> <span class="k">do</span>
+</span><span class='line'><span class="sr">&lt;p&gt;describe &#39;/</span><span class="n">api</span><span class="o">/</span><span class="n">products</span><span class="err">&#39;</span><span class="p">,</span> <span class="ss">:api</span> <span class="k">do</span>
 </span><span class='line'>  <span class="c1"># ...</span>
 </span><span class='line'><span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
@@ -135,6 +139,8 @@
 <li>You don't need a complex framework for this kind of tests, <a href="http://rdoc.info/github/brynary/rack-test/master/Rack/Test/Methods">Rack::Test::Methods</a> works just fine;</li>
 </ul>
 
+
+<p>[EDIT 24/08/2013] Added suggestion made by <a href="https://twitter.com/yoz">@yoz</a>.</p>
 ]]></content>
   </entry>
   
